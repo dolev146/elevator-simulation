@@ -78,7 +78,8 @@ const displayCallButtons = () => {
         <div class="call-button-cont">
           <button class="call-button call-button--${item.level}">CALL</button>
         </div>
-        <div class="lift-buttons lift-buttons--${item.level}"></div>
+        <div class="lift-buttons lift-buttons--left lift-buttons--${item.level}--left"></div>
+        <div class="lift-buttons lift-buttons--right lift-buttons--${item.level}--right"></div>
       </div>
     `
   })
@@ -93,7 +94,7 @@ const displayLeftLiftButtons = (floor, initial) => {
 
   if (initial === false) {
     leftTimer = setTimeout(() => {
-      let groundFloorDiv = document.querySelector(`.lift-buttons--${floor}`);
+      let groundFloorDiv = document.querySelector(`.lift-buttons--${floor}--left`);
       let groundFloorButtons = `
         <button class="lift-floor-button--left" id="lift-floor-button-left--4">3</button>
         <button class="lift-floor-button--left" id="lift-floor-button-left--5">4</button>
@@ -107,7 +108,7 @@ const displayLeftLiftButtons = (floor, initial) => {
     }, 1100)
 
   } else {
-    let groundFloorDiv = document.querySelector(`.lift-buttons--${floor}`);
+    let groundFloorDiv = document.querySelector(`.lift-buttons--${floor}--left`);
     let groundFloorButtons = `
       <button class="lift-floor-button--left" id="lift-floor-button-left--4">3</button>
       <button class="lift-floor-button--left" id="lift-floor-button-left--5">4</button>
@@ -119,8 +120,6 @@ const displayLeftLiftButtons = (floor, initial) => {
     groundFloorDiv.innerHTML = groundFloorButtons;
     leftLiftControls = floor;
   }
-
-
 }
 
 const clearLeftLiftButtons = () => {
@@ -136,7 +135,7 @@ const displayRightLiftButtons = (floor, initial) => {
 
   if (initial === false) {
     rightTimer = setTimeout(() => {
-      let minusFloorDiv = document.querySelector(`.lift-buttons--${floor}`);
+      let minusFloorDiv = document.querySelector(`.lift-buttons--${floor}--right`);
       let minusFloorButtons = `
         <button class="lift-floor-button--right" id="lift-floor-button-right--4">3</button>
         <button class="lift-floor-button--right" id="lift-floor-button-right--5">4</button>
@@ -150,7 +149,7 @@ const displayRightLiftButtons = (floor, initial) => {
     }, 1100)
 
   } else {
-    let minusFloorDiv = document.querySelector(`.lift-buttons--${floor}`);
+    let minusFloorDiv = document.querySelector(`.lift-buttons--${floor}--right`);
     let minusFloorButtons = `
       <button class="lift-floor-button--right" id="lift-floor-button-right--4">3</button>
       <button class="lift-floor-button--right" id="lift-floor-button-right--5">4</button>
@@ -176,6 +175,11 @@ const clearTimer = (side) => {
   clearTimeout(side)
 }
 
+const alertForLifts = () => {
+  alert('lift is already on this level')
+}
+
+
 
 
 functionality.addEventListener('click', (e) => {
@@ -197,6 +201,11 @@ functionality.addEventListener('click', (e) => {
     if (e.target.classList.contains(`call-button--${index}`)) {
 
       currentPos = index;
+      if (leftLiftPos === currentPos || rightLiftPos === currentPos) {
+        alertForLifts();
+        return;
+      }
+
       let distanceFromLeftLift = currentPos - leftLiftPos;
       if (distanceFromLeftLift < 0) {
         distanceFromLeftLift = distanceFromLeftLift * -1;
@@ -217,16 +226,41 @@ functionality.addEventListener('click', (e) => {
         displayRightLiftButtons(index, false)
         moveRightLift(index)
       }
+
     }
 
     switch (e.target.id) {
       case `lift-floor-button-left--${index}`:
+        currentPos = index;
+        if (leftLiftPos === currentPos) {
+          alertForLifts();
+          return;
+        }
+        if (currentPos === rightLiftPos) {
+          clearTimer(leftTimer);
+          clearLeftLiftButtons();
+          displayLeftLiftButtons(index, false);
+          moveLeftLift(index);
+          return;
+        }
         clearTimer(leftTimer);
         clearLeftLiftButtons();
         displayLeftLiftButtons(index, false);
         moveLeftLift(index);
         break;
       case `lift-floor-button-right--${index}`:
+        currentPos = index;
+        if (rightLiftPos === currentPos) {
+          alertForLifts();
+          return;
+        }
+        if (currentPos === leftLiftPos) {
+          clearTimer(rightTimer);
+          clearRightLiftButtons();
+          displayRightLiftButtons(index, false);
+          moveRightLift(index);
+          return;
+        }
         clearTimer(rightTimer);
         clearRightLiftButtons();
         displayRightLiftButtons(index, false);
@@ -237,6 +271,13 @@ functionality.addEventListener('click', (e) => {
   }
 
   if (e.target.classList.contains(`call-button--0`) || (e.target.id === 'lift-floor-button-right--0')) {
+
+    currentPos = 0;
+    if (rightLiftPos === currentPos) {
+      alertForLifts();
+      return;
+    }
+
     clearTimer(rightTimer);
     clearRightLiftButtons();
     displayRightLiftButtons(0, false);
