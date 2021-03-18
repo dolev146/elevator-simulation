@@ -47,17 +47,21 @@ const displayBuilding = () => {
   for (let index = 0; index < data.length - 1; index++) {
     floorHTML += `
       <div class="floor">
-        <div class="entry--left"></div>
-        <div class="entry--right"></div>
+        <div class="entry entry--left"></div>
+        <div class="entry entry--right"></div>
       </div>
     `;
   }
   building.innerHTML = `
-    <div class="lift--left"></div>
-    <div class="lift--right"></div>
+    <div class="lift lift--left">
+      <div class="door door--left"></div>
+    </div>
+    <div class="lift lift--right">
+      <div class="door door--right"></div>
+    </div>
     ${floorHTML}
     <div class="floor">
-      <div class="entry--right"></div>
+      <div class="entry entry--right"></div>
     </div>
   `;
 }
@@ -78,8 +82,7 @@ const displayCallButtons = () => {
   functionality.innerHTML = displayAllButtons;
 }
 
-let leftTimer;
-
+let leftControlsTimer;
 const displayLeftLiftButtons = (floor, onload) => {
 
   let groundFloorDiv = document.querySelector(`.lift-buttons--${floor}--left`);
@@ -95,16 +98,15 @@ const displayLeftLiftButtons = (floor, onload) => {
   if (onload) {
     groundFloorDiv.innerHTML = groundFloorButtonsHTML;
   } else {
-    leftTimer = setTimeout(() => {
+    leftControlsTimer = setTimeout(() => {
       groundFloorDiv.innerHTML = groundFloorButtonsHTML;
-    }, 1100)
+    }, 1000)
   }
 
   leftLiftControls = floor;
 }
 
-let rightTimer;
-
+let rightControlsTimer;
 const displayRightLiftButtons = (floor, onload) => {
 
   let minusFloorDiv = document.querySelector(`.lift-buttons--${floor}--right`);
@@ -120,9 +122,9 @@ const displayRightLiftButtons = (floor, onload) => {
   if (onload) {
     minusFloorDiv.innerHTML = minusFloorButtonsHTML;
   } else {
-    rightTimer = setTimeout(() => {
+    rightControlsTimer = setTimeout(() => {
       minusFloorDiv.innerHTML = minusFloorButtonsHTML;
-    }, 1100)
+    }, 1000)
   }
 
   rightLiftControls = floor;
@@ -133,18 +135,33 @@ const clearLiftButtons = (side) => {
   liftButtons.forEach((liftButton) => liftButton.remove())
 }
 
+
+let leftOpacFade;
+let rightOpacFade;
 const moveLift = (floor, side) => {
   let lift = document.querySelector(`.lift--${side}`);
+  lift.style.opacity = '0.4'
+
   if (side === 'left') {
     lift.style.transform = `translateY(${floor * -100 + 100}px)`;
+    leftOpacFade = setTimeout(() => {
+      lift.style.opacity = '1';
+    }, 1000)
     leftLiftPos = floor;
   } else if (side === 'right') {
     lift.style.transform = `translateY(${floor * -100}px)`;
+    rightOpacFade = setTimeout(() => {
+      lift.style.opacity = '1';
+    }, 1000)
     rightLiftPos = floor;
   }
 }
 
-const clearTimer = (side) => {
+const clearOpacTimer = (side) => {
+  clearTimeout(side);
+}
+
+const clearControlsTimer = (side) => {
   clearTimeout(side)
 }
 
@@ -177,12 +194,14 @@ functionality.addEventListener('click', (e) => {
       }
 
       if (distanceFromRightLift <= distanceFromLeftLift) {
-        clearTimer(rightTimer)
+        clearOpacTimer(rightOpacFade);
+        clearControlsTimer(rightControlsTimer)
         clearLiftButtons('right');
         displayRightLiftButtons(index, false);
         moveLift(index, 'right')
       } else {
-        clearTimer(leftTimer);
+        clearOpacTimer(leftOpacFade);
+        clearControlsTimer(leftControlsTimer);
         clearLiftButtons('left');
         displayLeftLiftButtons(index, false)
         moveLift(index, 'left')
@@ -197,13 +216,15 @@ functionality.addEventListener('click', (e) => {
           return;
         }
         if (currentPos === rightLiftPos) {
-          clearTimer(leftTimer);
+          clearOpacTimer(leftOpacFade);
+          clearControlsTimer(leftControlsTimer);
           clearLiftButtons('left');
           displayLeftLiftButtons(index, false);
           moveLift(index, 'left');
           return;
         }
-        clearTimer(leftTimer);
+        clearOpacTimer(leftOpacFade);
+        clearControlsTimer(leftControlsTimer);
         clearLiftButtons('left');
         displayLeftLiftButtons(index, false);
         moveLift(index, 'left');
@@ -216,13 +237,15 @@ functionality.addEventListener('click', (e) => {
           return;
         }
         if (currentPos === leftLiftPos) {
-          clearTimer(rightTimer);
+          clearOpacTimer(rightOpacFade);
+          clearControlsTimer(rightControlsTimer);
           clearLiftButtons('right');
           displayRightLiftButtons(index, false);
           moveLift(index, 'right');
           return;
         }
-        clearTimer(rightTimer);
+        clearOpacTimer(rightOpacFade);
+        clearControlsTimer(rightControlsTimer);
         clearLiftButtons('right');
         displayRightLiftButtons(index, false);
         moveLift(index, 'right');
@@ -239,7 +262,8 @@ functionality.addEventListener('click', (e) => {
       return;
     }
 
-    clearTimer(rightTimer);
+    clearOpacTimer(rightOpacFade);
+    clearControlsTimer(rightControlsTimer);
     clearLiftButtons('right');
     displayRightLiftButtons(0, false);
     moveLift(0, 'right')
