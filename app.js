@@ -42,33 +42,24 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 const displayBuilding = () => {
+
+  let floorHTML = ''
+  for (let index = 0; index < data.length - 1; index++) {
+    floorHTML += `
+      <div class="floor">
+        <div class="entry--left"></div>
+        <div class="entry--right"></div>
+      </div>
+    `;
+  }
   building.innerHTML = `
     <div class="lift--left"></div>
     <div class="lift--right"></div>
-    <div class="floor">
-      <div class="entry--left"></div>
-      <div class="entry--right"></div>
-    </div>
-    <div class="floor">
-      <div class="entry--left"></div>
-      <div class="entry--right"></div>
-    </div>
-    <div class="floor">
-      <div class="entry--left"></div>
-      <div class="entry--right"></div>
-    </div>
-    <div class="floor">
-      <div class="entry--left"></div>
-      <div class="entry--right"></div>
-    </div>
-    <div class="floor">
-      <div class="entry--left"></div>
-      <div class="entry--right"></div>
-    </div>
+    ${floorHTML}
     <div class="floor">
       <div class="entry--right"></div>
     </div>
-  `
+  `;
 }
 
 const displayCallButtons = () => {
@@ -81,94 +72,76 @@ const displayCallButtons = () => {
         <div class="lift-buttons lift-buttons--left lift-buttons--${item.level}--left"></div>
         <div class="lift-buttons lift-buttons--right lift-buttons--${item.level}--right"></div>
       </div>
-    `
+    `;
   })
   displayAllButtons = displayAllButtons.join('');
   functionality.innerHTML = displayAllButtons;
-
 }
 
 let leftTimer;
 
-const displayLeftLiftButtons = (floor, initial) => {
+const displayLeftLiftButtons = (floor, onload) => {
 
-  if (initial === false) {
-    leftTimer = setTimeout(() => {
-      let groundFloorDiv = document.querySelector(`.lift-buttons--${floor}--left`);
-      let groundFloorButtons = `
-        <button class="lift-floor-button--left" id="lift-floor-button-left--4">3</button>
-        <button class="lift-floor-button--left" id="lift-floor-button-left--5">4</button>
-        <button class="lift-floor-button--left" id="lift-floor-button-left--2">1</button>
-        <button class="lift-floor-button--left" id="lift-floor-button-left--3">2</button>
-        <button class="lift-floor-button--left"></button>
-        <button class="lift-floor-button--left" id="lift-floor-button-left--1">0</button>
-      `
-      groundFloorDiv.innerHTML = groundFloorButtons;
-      leftLiftControls = floor;
-    }, 1100)
+  let groundFloorDiv = document.querySelector(`.lift-buttons--${floor}--left`);
+  let groundFloorButtonsHTML = `
+    <button class="lift-floor-button--left" id="lift-floor-button-left--4">3</button>
+    <button class="lift-floor-button--left" id="lift-floor-button-left--5">4</button>
+    <button class="lift-floor-button--left" id="lift-floor-button-left--2">1</button>
+    <button class="lift-floor-button--left" id="lift-floor-button-left--3">2</button>
+    <button class="lift-floor-button--left"></button>
+    <button class="lift-floor-button--left" id="lift-floor-button-left--1">0</button>
+  `;
 
+  if (onload) {
+    groundFloorDiv.innerHTML = groundFloorButtonsHTML;
   } else {
-    let groundFloorDiv = document.querySelector(`.lift-buttons--${floor}--left`);
-    let groundFloorButtons = `
-      <button class="lift-floor-button--left" id="lift-floor-button-left--4">3</button>
-      <button class="lift-floor-button--left" id="lift-floor-button-left--5">4</button>
-      <button class="lift-floor-button--left" id="lift-floor-button-left--2">1</button>
-      <button class="lift-floor-button--left" id="lift-floor-button-left--3">2</button>
-      <button class="lift-floor-button--left"></button>
-      <button class="lift-floor-button--left" id="lift-floor-button-left--1">0</button>
-    `
-    groundFloorDiv.innerHTML = groundFloorButtons;
-    leftLiftControls = floor;
+    leftTimer = setTimeout(() => {
+      groundFloorDiv.innerHTML = groundFloorButtonsHTML;
+    }, 1100)
   }
-}
 
-const clearLeftLiftButtons = () => {
-  const leftLiftButtons = document.querySelectorAll('.lift-floor-button--left');
-  leftLiftButtons.forEach((leftLiftButton) => {
-    leftLiftButton.remove()
-  })
+  leftLiftControls = floor;
 }
 
 let rightTimer;
 
-const displayRightLiftButtons = (floor, initial) => {
+const displayRightLiftButtons = (floor, onload) => {
 
-  if (initial === false) {
-    rightTimer = setTimeout(() => {
-      let minusFloorDiv = document.querySelector(`.lift-buttons--${floor}--right`);
-      let minusFloorButtons = `
-        <button class="lift-floor-button--right" id="lift-floor-button-right--4">3</button>
-        <button class="lift-floor-button--right" id="lift-floor-button-right--5">4</button>
-        <button class="lift-floor-button--right" id="lift-floor-button-right--2">1</button>
-        <button class="lift-floor-button--right" id="lift-floor-button-right--3">2</button>
-        <button class="lift-floor-button--right" id="lift-floor-button-right--0">-1</button>
-        <button class="lift-floor-button--right" id="lift-floor-button-right--1">0</button>
-      `
-      minusFloorDiv.innerHTML = minusFloorButtons;
-      rightLiftControls = floor;
-    }, 1100)
+  let minusFloorDiv = document.querySelector(`.lift-buttons--${floor}--right`);
+  let minusFloorButtonsHTML = `
+    <button class="lift-floor-button--right" id="lift-floor-button-right--4">3</button>
+    <button class="lift-floor-button--right" id="lift-floor-button-right--5">4</button>
+    <button class="lift-floor-button--right" id="lift-floor-button-right--2">1</button>
+    <button class="lift-floor-button--right" id="lift-floor-button-right--3">2</button>
+    <button class="lift-floor-button--right" id="lift-floor-button-right--0">-1</button>
+    <button class="lift-floor-button--right" id="lift-floor-button-right--1">0</button>
+  `;
 
+  if (onload) {
+    minusFloorDiv.innerHTML = minusFloorButtonsHTML;
   } else {
-    let minusFloorDiv = document.querySelector(`.lift-buttons--${floor}--right`);
-    let minusFloorButtons = `
-      <button class="lift-floor-button--right" id="lift-floor-button-right--4">3</button>
-      <button class="lift-floor-button--right" id="lift-floor-button-right--5">4</button>
-      <button class="lift-floor-button--right" id="lift-floor-button-right--2">1</button>
-      <button class="lift-floor-button--right" id="lift-floor-button-right--3">2</button>
-      <button class="lift-floor-button--right" id="lift-floor-button-right--0">-1</button>
-      <button class="lift-floor-button--right" id="lift-floor-button-right--1">0</button>
-    `
-    minusFloorDiv.innerHTML = minusFloorButtons;
-    rightLiftControls = floor;
+    rightTimer = setTimeout(() => {
+      minusFloorDiv.innerHTML = minusFloorButtonsHTML;
+    }, 1100)
   }
 
+  rightLiftControls = floor;
 }
 
-const clearRightLiftButtons = () => {
-  const rightLiftButtons = document.querySelectorAll('.lift-floor-button--right');
-  rightLiftButtons.forEach((rightLiftButton) => {
-    rightLiftButton.remove()
-  })
+const clearLiftButtons = (side) => {
+  const liftButtons = document.querySelectorAll(`.lift-floor-button--${side}`);
+  liftButtons.forEach((liftButton) => liftButton.remove())
+}
+
+const moveLift = (floor, side) => {
+  let lift = document.querySelector(`.lift--${side}`);
+  if (side === 'left') {
+    lift.style.transform = `translateY(${floor * -100 + 100}px)`;
+    leftLiftPos = floor;
+  } else if (side === 'right') {
+    lift.style.transform = `translateY(${floor * -100}px)`;
+    rightLiftPos = floor;
+  }
 }
 
 const clearTimer = (side) => {
@@ -183,18 +156,6 @@ const alertForLifts = () => {
 
 
 functionality.addEventListener('click', (e) => {
-
-  const moveLeftLift = (floor) => {
-    let lefty = document.querySelector('.lift--left');
-    lefty.style.transform = `translateY(${floor * -100 + 100}px)`;
-    leftLiftPos = floor;
-  }
-
-  const moveRightLift = (floor) => {
-    let righty = document.querySelector('.lift--right');
-    righty.style.transform = `translateY(${floor * -100}px)`;
-    rightLiftPos = floor;
-  }
 
   for (let index = data[0].level; index >= 1; index--) {
 
@@ -215,18 +176,17 @@ functionality.addEventListener('click', (e) => {
         distanceFromRightLift = distanceFromRightLift * -1;
       }
 
-      if (distanceFromLeftLift <= distanceFromRightLift) {
-        clearTimer(leftTimer)
-        clearLeftLiftButtons();
-        displayLeftLiftButtons(index, false);
-        moveLeftLift(index)
+      if (distanceFromRightLift <= distanceFromLeftLift) {
+        clearTimer(rightTimer)
+        clearLiftButtons('right');
+        displayRightLiftButtons(index, false);
+        moveLift(index, 'right')
       } else {
-        clearTimer(rightTimer);
-        clearRightLiftButtons();
-        displayRightLiftButtons(index, false)
-        moveRightLift(index)
+        clearTimer(leftTimer);
+        clearLiftButtons('left');
+        displayLeftLiftButtons(index, false)
+        moveLift(index, 'left')
       }
-
     }
 
     switch (e.target.id) {
@@ -238,16 +198,17 @@ functionality.addEventListener('click', (e) => {
         }
         if (currentPos === rightLiftPos) {
           clearTimer(leftTimer);
-          clearLeftLiftButtons();
+          clearLiftButtons('left');
           displayLeftLiftButtons(index, false);
-          moveLeftLift(index);
+          moveLift(index, 'left');
           return;
         }
         clearTimer(leftTimer);
-        clearLeftLiftButtons();
+        clearLiftButtons('left');
         displayLeftLiftButtons(index, false);
-        moveLeftLift(index);
+        moveLift(index, 'left');
         break;
+
       case `lift-floor-button-right--${index}`:
         currentPos = index;
         if (rightLiftPos === currentPos) {
@@ -256,15 +217,15 @@ functionality.addEventListener('click', (e) => {
         }
         if (currentPos === leftLiftPos) {
           clearTimer(rightTimer);
-          clearRightLiftButtons();
+          clearLiftButtons('right');
           displayRightLiftButtons(index, false);
-          moveRightLift(index);
+          moveLift(index, 'right');
           return;
         }
         clearTimer(rightTimer);
-        clearRightLiftButtons();
+        clearLiftButtons('right');
         displayRightLiftButtons(index, false);
-        moveRightLift(index);
+        moveLift(index, 'right');
         break;
     }
 
@@ -279,11 +240,10 @@ functionality.addEventListener('click', (e) => {
     }
 
     clearTimer(rightTimer);
-    clearRightLiftButtons();
+    clearLiftButtons('right');
     displayRightLiftButtons(0, false);
-    moveRightLift(0)
+    moveLift(0, 'right')
   }
-
 })
 
 
