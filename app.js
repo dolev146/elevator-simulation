@@ -33,6 +33,7 @@ let currentPos;
 
 const building = document.querySelector('.building');
 const functionality = document.querySelector('.functionality');
+const controlPanel = document.querySelector('.control-panel');
 
 window.addEventListener('DOMContentLoaded', () => {
   displayBuilding();
@@ -44,15 +45,27 @@ window.addEventListener('DOMContentLoaded', () => {
 const displayBuilding = () => {
 
   let floorHTML = ''
-  for (let index = 0; index < data.length - 1; index++) {
+  for (let index = data[0].level - 1; index >= 0; index--) {
     floorHTML += `
       <div class="floor">
-        <div class="entry entry--left"></div>
-        <div class="entry entry--right"></div>
+        <div class="entry entry--left">
+          <div class="door door--left"></div>
+        </div>
+        <div class="floor-num">${index}</div>
+        <div class="entry entry--right">
+          <div class="door door--left"></div>
+        </div>
       </div>
     `;
   }
   building.innerHTML = `
+    <div class="building-text-cont">
+      <h2>Building</h2>
+      <div class="side-cont side-cont--building">
+        <p id="side-left--building">Left</p>
+        <p id="side-right--building">Right</p>
+      </div>
+    </div>
     <div class="lift lift--left">
       <div class="door door--left"></div>
     </div>
@@ -61,7 +74,10 @@ const displayBuilding = () => {
     </div>
     ${floorHTML}
     <div class="floor">
-      <div class="entry entry--right"></div>
+      <div class="floor-num">-1</div>
+      <div class="entry entry--right">
+        <div class="door door--right"></div>
+      </div>
     </div>
   `;
 }
@@ -79,7 +95,7 @@ const displayCallButtons = () => {
     `;
   })
   displayAllButtons = displayAllButtons.join('');
-  functionality.innerHTML = displayAllButtons;
+  controlPanel.innerHTML = displayAllButtons;
 }
 
 let leftControlsTimer;
@@ -166,7 +182,7 @@ const clearControlsTimer = (side) => {
 }
 
 const alertForLifts = () => {
-  alert('lift is already on this level')
+  alert('There is already a lift available on this floor.')
 }
 
 

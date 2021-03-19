@@ -5,31 +5,52 @@
 }
 
 body {
-  background-color: aqua;
-  height: 100vh;
+  width: 100%;
+  padding: 5vh 0;
+  background-color: white;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(230, 230, 230);
+}
+
+.wrapper {
+  background-color: rgb(162, 234, 252);
+  width: 80%;
+  margin: 0 auto;
+  max-height: 867px;
+  min-width: 800px; 
+  border-radius: 10px;
+  padding-top: 30px;
+  box-shadow: 0px 0px 16px 5px rgba(0,0,0,0.33);
 }
 
 .container {
-  background-color: aqua;
-  padding: 10vh 0;
   display: flex;
-  justify-content: center;
+  width: 100%;
+  justify-content: center; 
+  padding-top: 25px;
 }
 
 /* ----------------------- BUILDING ----------------------- */
 
 .building {
-  width: 350px;
-  background-color: grey;
-  margin-right: 5%;
+  min-width: 350px;
   position: relative;
+  z-index: 10;
+  margin-right: 50px;
 }
 
 .floor {
   width: 100%;
+  background-color: grey;
   border-bottom: 3px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
   height: 100px;
   position: relative;
+}
+
+.floor:first-child, :not(.floor) + .floor {
+  border-top: 1px solid black;
 }
 
 .entry {
@@ -44,11 +65,11 @@ body {
 }
 
 .entry--left {
-  left: 85px;
+  left: 84px;
 }
 
 .entry--right {
-  right: 85px;
+  right: 84px;
 }
 
 .lift {
@@ -78,12 +99,32 @@ body {
   margin: 0 auto;
 }
 
+.floor-num {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 50%;
+  color: rgb(253, 250, 250);
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+}
 
-/* ----------------------- BUTTONS ----------------------- */
+/* ----------------------- CONTROL PANEL ----------------------- */
 
 .functionality {
-  width: 250px;
+  min-width: 255px;
   background-color: grey;
+  z-index: 10;
+}
+
+.control-panel {
+  border-left: 1px solid black;
+  border-right: 1px solid black;
 }
 
 .floor__buttons {
@@ -93,6 +134,10 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.floor__buttons:first-child, :not(.floor__buttons) + .floor__buttons {
+  border-top: 1px solid black;
 }
 
 .call-button {
@@ -134,5 +179,59 @@ button {
 
 button:hover {
   background-color: rgb(190, 190, 190);
+  transition: 0.1s all linear;
 }
 
+/* ----------------------- GROUND ----------------------- */
+
+.ground {
+  height: 200px;
+  background: repeating-linear-gradient( -45deg, #000000, #000000 1px, #a77f63 1.5px, #a77f63 20px );
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  transform: translateY(-105px);
+  width: 100%;
+  border-top: 5px green solid;
+}
+
+/* ----------------------- HEADINGS ----------------------- */
+
+h1 {
+  text-align: center;
+  padding: 7px 0;
+  background-color: rgb(247, 247, 247); 
+  width: 470px;
+  border-radius: 10px;
+  margin: 0 auto;
+}
+
+.building-text-cont, .control-panel-text-cont {
+  background-color: rgb(162, 234, 252); 
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.side-cont {
+  display: flex;
+}
+
+.side-cont p {
+  padding: 10px 0;
+}
+
+#side-left--building {
+  padding-left: 105px;;
+}
+
+#side-right--building {
+  padding-left: 83px;;
+}
+
+#side-left--control-panel {
+  padding-left: 112px;
+}
+
+#side-right--control-panel {
+  padding-left: 54px;
+}
