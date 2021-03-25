@@ -1,7 +1,3 @@
-// general comment: you should try and seperate some of this stuff into different files,
-// heres no need for looking at this to involve so much scrolling
-
-
 const numOfFloors = 4;
 let leftLiftPos = 0;
 let rightLiftPos = -1;
@@ -14,17 +10,14 @@ const functionality = document.querySelector('.functionality');
 const controlPanel = document.querySelector('.control-panel');
 
 window.addEventListener('DOMContentLoaded', () => {
-  displayBuilding();
+  building.innerHTML = displayBuilding(numOfFloors);
   displayCallButtons();
   displayLiftFloorButtons(0, 'left', true);
   displayLiftFloorButtons(-1, 'right', true);
 });
 
-// put in its own file
-// so considerations for that, you could import `data` to do that...
-// OR you could also paramterize the amount of floors (excluding the basement floor) in order to make it a bit more dynamic
 
-const displayBuilding = () => {
+const displayBuilding = (numOfFloors) => {
   let floorHTML = '';
   for (let index = numOfFloors; index >= 0; index--) {
     floorHTML += `
@@ -32,14 +25,16 @@ const displayBuilding = () => {
         <div class="entry entry--left">
           <div class="door door--left"></div>
         </div>
-        <div class="floor-num">${index}</div>
+        <div class="floor-num-cont">
+          <div class="floor-num">${index}</div>
+        </div>
         <div class="entry entry--right">
           <div class="door door--left"></div>
         </div>
       </div>
     `;
   }
-  building.innerHTML = `
+  return `
     <div class="building-text-cont">
       <h2>Building</h2>
       <div class="side-cont side-cont--building">
@@ -55,15 +50,16 @@ const displayBuilding = () => {
     </div>
     ${floorHTML}
     <div class="floor">
-      <div class="floor-num">-1</div>
+      <div class="floor-num-cont">
+        <div class="floor-num">-1</div>
+      </div>
       <div class="entry entry--right">
         <div class="door door--right"></div>
       </div>
     </div>
   `;
-
-  // return the html as a string instead and then do the building.innerHTML stuff in the main file
 };
+
 
 const displayCallButtons = () => {
 
@@ -91,7 +87,7 @@ const displayLiftFloorButtons = (floor, side, onload) => {
     <button class="lift-floor-button--${side}" id="lift-floor-button-${side}--4">4</button>
     <button class="lift-floor-button--${side}" id="lift-floor-button-${side}--1">1</button>
     <button class="lift-floor-button--${side}" id="lift-floor-button-${side}--2">2</button>
-    <button class="lift-floor-button--${side}" id=${side === 'left' ? '' : "lift-floor-button-right---1"}>${side === 'left' ? '' : '-1'}</button>
+    <button class="lift-floor-button--${side}" ${side === 'left' ? '' : 'id="lift-floor-button-right---1"'}>${side === 'left' ? '' : '-1'}</button>
     <button class="lift-floor-button--${side}" id="lift-floor-button-${side}--0">0</button>
   `;
   if (onload) {
@@ -99,7 +95,7 @@ const displayLiftFloorButtons = (floor, side, onload) => {
   } else {
     if (side === 'left') {
       leftControlsTimer = setTimeout(() => {
-        floorButtonsDiv.innerHTML = floorButtonsInnerHTML; // can you explain this bit to me
+        floorButtonsDiv.innerHTML = floorButtonsInnerHTML;
       }, 1000);
       leftLiftControls = floor;
     } else if (side === 'right') {
@@ -157,10 +153,16 @@ const alertForLifts = () => {
   alert('There is already a lift available on this floor.');
 };
 
+const moveLiftWithControls = (index, side) => {
+  clearOpacTimer(`${side}OpacFade`);
+  clearControlsTimer(`${side}ControlsTimer`);
+  clearLiftButtons(`${side}`);
+  displayLiftFloorButtons(index, `${side}`, false);
+  moveLift(index, `${side}`);
+}
 
 
-functionality.addEventListener('click', (e) => {
-  // this callback can be a named function which can be imported from another file
+const functionalityHandler = (e) => {
   for (let index = numOfFloors; index >= -1; index--) {
     if (e.target.classList.contains(`call-button--${index}`)) {
       currentPos = index;
@@ -179,17 +181,9 @@ functionality.addEventListener('click', (e) => {
       }
 
       if (distanceFromRightLift <= distanceFromLeftLift || currentPos === -1) {
-        clearOpacTimer(rightOpacFade);
-        clearControlsTimer(rightControlsTimer);
-        clearLiftButtons('right');
-        displayLiftFloorButtons(index, 'right', false);
-        moveLift(index, 'right');
+        moveLiftWithControls(index, 'right');
       } else {
-        clearOpacTimer(leftOpacFade);
-        clearControlsTimer(leftControlsTimer);
-        clearLiftButtons('left');
-        displayLiftFloorButtons(index, 'left', false);
-        moveLift(index, 'left');
+        moveLiftWithControls(index, 'left');
       }
     }
 
@@ -200,11 +194,7 @@ functionality.addEventListener('click', (e) => {
           alertForLifts();
           return;
         }
-        clearOpacTimer(leftOpacFade);
-        clearControlsTimer(leftControlsTimer);
-        clearLiftButtons('left');
-        displayLiftFloorButtons(index, 'left', false);
-        moveLift(index, 'left');
+        moveLiftWithControls(index, 'left');
         break;
 
       case `lift-floor-button-right--${index}`:
@@ -213,13 +203,11 @@ functionality.addEventListener('click', (e) => {
           alertForLifts();
           return;
         }
-        clearOpacTimer(rightOpacFade);
-        clearControlsTimer(rightControlsTimer);
-        clearLiftButtons('right');
-        displayLiftFloorButtons(index, 'right', false);
-        moveLift(index, 'right');
+        moveLiftWithControls(index, 'right');
         break;
     }
   }
+}
 
-});
+functionality.addEventListener('click', functionalityHandler);
+

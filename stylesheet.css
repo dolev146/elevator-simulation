@@ -99,6 +99,14 @@ body {
   margin: 0 auto;
 }
 
+.floor-num-cont {
+  position: absolute;
+  background-color: grey;
+  height: 36px;
+  width: 100%;
+  z-index: 1000;
+}
+
 .floor-num {
   position: absolute;
   top: 8px;
