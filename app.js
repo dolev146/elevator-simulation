@@ -146,7 +146,6 @@ const alertForLifts = () => {
 };
 
 const moveLiftWithControls = (index, side) => {
-
   if (side === 'left') {
     clearTimeout(leftControlsTimer);
     clearTimeout(leftOpacFade);
@@ -208,4 +207,31 @@ const functionalityHandler = (e) => {
 }
 
 functionality.addEventListener('click', functionalityHandler);
+
+// ------------------- modal ---------------------
+
+let modal = document.querySelector('.modal');
+let infoBtn = document.querySelector('.info-btn');
+let closeBtn = document.querySelector('.close');
+
+const showModal = () => {
+  modal.style.display = 'block';
+}
+
+const closeModal = () => {
+  modal.style.display = 'none';
+}
+
+infoBtn.addEventListener('click', showModal);
+closeBtn.addEventListener('click', closeModal);
+
+window.addEventListener('click', (e) => {
+  if (e.target === modal) {
+    modal.style.display = 'none';
+  }
+})
+
+
+
+
 

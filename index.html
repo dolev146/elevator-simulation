@@ -6,6 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Elevator Simulation</title>
   <link rel="stylesheet" href="stylesheet.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+    integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 </head>
 
 <body>
@@ -13,6 +15,32 @@
   <div class="wrapper">
 
     <h1>Elevator Simulation</h1>
+    <button class="info-btn">
+      <i class="fas fa-info-circle"></i>
+    </button>
+
+    <div class="modal">
+      <div class="modal-content">
+        <span class="close"><i class="fas fa-times"></i></span>
+        <h2>How It Works</h2>
+        <ul>
+          <li>There are two elevators in a block of flats for this system.</li>
+          <li>The left one can only travel between the ground floor and the top floor.</li>
+          <li>The right one however can travel from the underground carpark (-1) to all the other floors.</li>
+          <li>Whenever a user presses the 'call' button on their floor, whichever elevator is closest will arrive at
+            that floor.</li>
+          <li>If both lifts are equally close/far away, the right one will arrive (since this one can travel to more
+            floors).</li>
+          <li>Depending on which elevator arrives, the user is then presented with lift controls which reflect the
+            floors which the elevator can reach.</li>
+          <li>The user can then select which floor they want to travel to and the elevator will take them there.</li>
+          <li>If a user presses the 'call' button while there is already a lift at their floor, they will recieve
+            feedback via an alert.</li>
+          <li>If a user tries to travel to a floor which they are already on, they will again recieve feedback via an
+            alert.</li>
+        </ul>
+      </div>
+    </div>
 
     <div class="container">
       <div class="building">
