@@ -13,6 +13,7 @@ body {
 }
 
 .wrapper {
+  position: relative;
   background-color: rgb(162, 234, 252);
   width: 80%;
   margin: 0 auto;
@@ -210,7 +211,7 @@ h1 {
   background-color: rgb(247, 247, 247); 
   width: 470px;
   border-radius: 10px;
-  margin: 0 auto;
+  margin: 0 auto; 
 }
 
 .building-text-cont, .control-panel-text-cont {
@@ -242,4 +243,82 @@ h1 {
 
 #side-right--control-panel {
   padding-left: 54px;
+}
+
+/* ----------------------- MODAL ----------------------- */
+
+.info-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  font-size: 50px;
+  border: 0;
+  padding: 0;
+  background-color: transparent;
+  color: rgb(94, 137, 255);
+  transition: 0.2s color linear;
+}
+
+.info-btn:hover {
+  background-color: transparent;
+  color: blue;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 70px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  border-radius: 10px;
+  margin: auto;
+  padding: 30px;
+  width: 70%;
+}
+
+.modal-content h2 {
+  background-color: #dadada;
+  text-align: center;
+  padding: 10px;
+  width: 40%;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+.modal-content ul {
+  padding-top: 25px;
+  -webkit-padding-start: 30px;
+  color: rgb(44, 44, 44);
+}
+
+.modal-content ul li {
+  padding: 12px 0;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: #aaaaaa;
+  font-size: 28px;
+  cursor: pointer;
+  transition: 0.2s all linear;
+}
+
+.close:hover {
+  color: #000;
 }
