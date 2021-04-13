@@ -141,24 +141,22 @@ const moveLift = (floor, side) => {
   }
 };
 
-const clearOpacTimer = (side) => {
-  clearTimeout(side);
-};
-
-const clearControlsTimer = (side) => {
-  clearTimeout(side);
-};
-
 const alertForLifts = () => {
   alert('There is already a lift available on this floor.');
 };
 
 const moveLiftWithControls = (index, side) => {
-  clearOpacTimer(`${side}OpacFade`);
-  clearControlsTimer(`${side}ControlsTimer`);
-  clearLiftButtons(`${side}`);
-  displayLiftFloorButtons(index, `${side}`, false);
+
+  if (side === 'left') {
+    clearTimeout(leftControlsTimer);
+    clearTimeout(leftOpacFade);
+  } else {
+    clearTimeout(rightControlsTimer);
+    clearTimeout(rightOpacFade);
+  }
   moveLift(index, `${side}`);
+  displayLiftFloorButtons(index, `${side}`, false);
+  clearLiftButtons(`${side}`);
 }
 
 
