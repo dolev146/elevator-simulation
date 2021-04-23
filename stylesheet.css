@@ -7,7 +7,7 @@
 body {
   width: 100%;
   padding: 5vh 0;
-  background-color: white;
+  background-color: #fff;
   font-family: Arial, Helvetica, sans-serif;
   background-color: rgb(230, 230, 230);
 }
@@ -43,23 +43,23 @@ body {
 .floor {
   width: 100%;
   background-color: grey;
-  border-bottom: 3px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-bottom: 3px solid #000;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
   height: 100px;
   position: relative;
 }
 
 .floor:first-child, :not(.floor) + .floor {
-  border-top: 1px solid black;
+  border-top: 1px solid #000;
 }
 
 .entry {
   position: absolute;
   background-color: rgb(78, 78, 78);
-  border-left: black 3px solid;
-  border-right: black 3px solid;
-  border-top: black 3px solid;
+  border-left: #000 3px solid;
+  border-right: #000 3px solid;
+  border-top: #000 3px solid;
   width: 65px;
   height: 60px;
   bottom: 0;
@@ -94,7 +94,7 @@ body {
 }
 
 .door {
-  background-color: black;
+  background-color: #000;
   height: 100%;
   width: 1px;
   margin: 0 auto;
@@ -115,7 +115,7 @@ body {
   transform: translateX(-50%);
   width: 20px;
   height: 20px;
-  border: 1px solid black;
+  border: 1px solid #000;
   border-radius: 50%;
   color: rgb(253, 250, 250);
   display: grid;
@@ -132,13 +132,13 @@ body {
 }
 
 .control-panel {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
+  border-left: 1px solid #000;
+  border-right: 1px solid #000;
 }
 
 .floor__buttons {
   width: 100%;
-  border-bottom: 3px solid black;
+  border-bottom: 3px solid #000;
   height: 100px;
   display: flex;
   justify-content: space-around;
@@ -146,7 +146,7 @@ body {
 }
 
 .floor__buttons:first-child, :not(.floor__buttons) + .floor__buttons {
-  border-top: 1px solid black;
+  border-top: 1px solid #000;
 }
 
 .call-button {
@@ -158,14 +158,14 @@ body {
 
 .call-button:active {
   background-color: rgb(190, 190, 190);
-  box-shadow: 0 2px black;
+  box-shadow: 0 2px #000;
   transform: translateY(3px);
 }
 
 .lift-buttons {
   display: grid;
   grid-template-columns: 23px 23px;
-  grid-template-rows: 23px 23px 23px;
+  grid-template-rows: repeat(3, 23px);
   grid-gap: 5px;
 }
 
@@ -176,13 +176,13 @@ body {
 
 .lift-buttons button:active {
   background-color: rgb(190, 190, 190);
-  box-shadow: 0 1px black;
+  box-shadow: 0 1px #000;
   transform: translateY(1px);
 }
 
 button {
   cursor: pointer;
-  border: 1px solid black;
+  border: 1px solid #000;
   outline: none;
 }
 
@@ -195,7 +195,7 @@ button:hover {
 
 .ground {
   height: 200px;
-  background: repeating-linear-gradient( -45deg, #000000, #000000 1px, #a77f63 1.5px, #a77f63 20px );
+  background: repeating-linear-gradient( -45deg, #000, #000 1px, #a77f63 1.5px, #a77f63 20px );
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   transform: translateY(-105px);
@@ -314,7 +314,7 @@ h1 {
   position: absolute;
   top: 20px;
   right: 20px;
-  color: #aaaaaa;
+  color: #aaa;
   font-size: 28px;
   cursor: pointer;
   transition: 0.2s all linear;
