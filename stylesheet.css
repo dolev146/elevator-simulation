@@ -7,14 +7,13 @@
 body {
   width: 100%;
   padding: 5vh 0;
-  background-color: #fff;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: rgb(230, 230, 230);
+  background: rgb(230, 230, 230);
 }
 
 .wrapper {
   position: relative;
-  background-color: rgb(162, 234, 252);
+  background: rgb(162, 234, 252);
   width: 80%;
   margin: 0 auto;
   max-height: 867px;
@@ -42,7 +41,7 @@ body {
 
 .floor {
   width: 100%;
-  background-color: grey;
+  background: rgb(128, 128, 128);
   border-bottom: 3px solid #000;
   border-left: 1px solid #000;
   border-right: 1px solid #000;
@@ -56,7 +55,7 @@ body {
 
 .entry {
   position: absolute;
-  background-color: rgb(78, 78, 78);
+  background: rgb(78, 78, 78);
   border-left: #000 3px solid;
   border-right: #000 3px solid;
   border-top: #000 3px solid;
@@ -75,7 +74,7 @@ body {
 
 .lift {
   position: absolute;
-  background-color: rgb(219, 219, 219);
+  background: rgb(219, 219, 219);
   width: 59px;
   height: 57px;
   border: 3px solid rgb(92, 92, 92);
@@ -94,7 +93,7 @@ body {
 }
 
 .door {
-  background-color: #000;
+  background: #000;
   height: 100%;
   width: 1px;
   margin: 0 auto;
@@ -102,7 +101,7 @@ body {
 
 .floor-num-cont {
   position: absolute;
-  background-color: grey;
+  background: grey;
   height: 36px;
   width: 100%;
   z-index: 1000;
@@ -127,7 +126,7 @@ body {
 
 .functionality {
   min-width: 255px;
-  background-color: grey;
+  background: grey;
   z-index: 10;
 }
 
@@ -157,7 +156,7 @@ body {
 }
 
 .call-button:active {
-  background-color: rgb(190, 190, 190);
+  background: rgb(190, 190, 190);
   box-shadow: 0 2px #000;
   transform: translateY(3px);
 }
@@ -175,7 +174,7 @@ body {
 }
 
 .lift-buttons button:active {
-  background-color: rgb(190, 190, 190);
+  background: rgb(190, 190, 190);
   box-shadow: 0 1px #000;
   transform: translateY(1px);
 }
@@ -187,7 +186,7 @@ button {
 }
 
 button:hover {
-  background-color: rgb(190, 190, 190);
+  background: rgb(190, 190, 190);
   transition: 0.1s all linear;
 }
 
@@ -200,7 +199,7 @@ button:hover {
   border-bottom-right-radius: 10px;
   transform: translateY(-105px);
   width: 100%;
-  border-top: 5px green solid;
+  border-top: 5px rgb(0, 128, 0) solid;
 }
 
 /* ----------------------- HEADINGS ----------------------- */
@@ -208,14 +207,14 @@ button:hover {
 h1 {
   text-align: center;
   padding: 7px 0;
-  background-color: rgb(247, 247, 247); 
+  background: rgb(247, 247, 247); 
   width: 470px;
   border-radius: 10px;
   margin: 0 auto; 
 }
 
 .building-text-cont, .control-panel-text-cont {
-  background-color: rgb(162, 234, 252); 
+  background: rgb(162, 234, 252); 
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -257,14 +256,14 @@ h1 {
   font-size: 50px;
   border: 0;
   padding: 0;
-  background-color: transparent;
+  background: transparent;
   color: rgb(94, 137, 255);
   transition: 0.2s color linear;
 }
 
 .info-btn:hover {
-  background-color: transparent;
-  color: blue;
+  background: transparent;
+  color: rgb(0, 0, 255);
 }
 
 .modal {
@@ -277,12 +276,12 @@ h1 {
   width: 100%;
   height: 100%;
   overflow: auto;
-  background-color: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.7);
 }
 
 .modal-content {
   position: relative;
-  background-color: #fefefe;
+  background: #fefefe;
   border-radius: 10px;
   margin: auto;
   padding: 30px;
@@ -291,7 +290,7 @@ h1 {
 }
 
 .modal-content h2 {
-  background-color: #dadada;
+  background: #dadada;
   text-align: center;
   padding: 10px;
   width: 40%;
