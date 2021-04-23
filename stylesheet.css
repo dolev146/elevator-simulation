@@ -195,8 +195,7 @@ button:hover {
 .ground {
   height: 200px;
   background: repeating-linear-gradient( -45deg, #000, #000 1px, #a77f63 1.5px, #a77f63 20px );
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
+  border-radius: 0 0 10px 10px;
   transform: translateY(-105px);
   width: 100%;
   border-top: 5px rgb(0, 128, 0) solid;
