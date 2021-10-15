@@ -1,5 +1,7 @@
 # Elevator Simulation
 
+[https://dolev146.github.io/elevator-simulation/](https://dolev146.github.io/elevator-simulation/)
+
 I wanted to work on a project with more logic to test my JavaScript skills so came up with this idea of modelling an elevator system. Here's how it works:
 
 * There are two elevators in a block of flats for this system. 
